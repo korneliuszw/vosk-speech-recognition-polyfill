@@ -1,0 +1,38 @@
+{
+  "name": "vosk-speech-recognition-polyfill",
+  "version": "1.0.0",
+  "description": "Polyfill for web SpeechRecognition API using Vosk offline voice recognition",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/korneliuszw/vosk-speech-recognition-polyfill.git"
+  },
+  "keywords": [
+    "polyfill",
+    "vosk",
+    "speech",
+    "recognition",
+    "web",
+    "api",
+    "offline"
+  ],
+  "author": "korneliuszw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/korneliuszw/vosk-speech-recognition-polyfill/issues"
+  },
+  "homepage": "https://github.com/korneliuszw/vosk-speech-recognition-polyfill#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "vosk-browser": "^0.0.8"
+  }
+}
