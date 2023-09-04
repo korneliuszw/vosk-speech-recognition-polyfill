@@ -2,9 +2,13 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "esnext",
-    "target": "ES6",
+    "target": "esnext",
+    "moduleResolution": "node",
     "declaration": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts"]
 }
