@@ -14,7 +14,6 @@ export class AudioSource {
                 channelCount: 1
             }, video: false})
         this._audioContext = new AudioContext()
-        // TODO: This won't work with bundlers
         await registerAudioProcessor(this._audioContext)
         this._recognizerNode = new AudioWorkletNode(this._audioContext, 'recognizer-processor', { channelCount: 1, numberOfInputs: 1, numberOfOutputs: 1 })
         this._recognizerNode.port.postMessage({type: 'init', recognizerId: recognizer.id}, [channel.port2])
