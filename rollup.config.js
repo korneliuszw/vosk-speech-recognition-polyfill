@@ -11,7 +11,6 @@ export default [
             name: 'vosk-speech-recognition-polyfill',
             dir: 'dist',
             format: 'esm',
-            sourcemap: true
         },
         plugins: [
             webWorkerLoader({
