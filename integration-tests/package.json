@@ -10,7 +10,20 @@
   "license": "ISC",
   "dependencies": {
     "cypress": "^13.1.0",
+    "react-speech-recognition": "^3.10.0",
     "typescript": "^5.2.2",
     "vosk-speech-recognition-polyfill": "file://.."
+  },
+  "devDependencies": {
+    "@cypress/react18": "^2.0.0",
+    "@types/audioworklet": "^0.0.50",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "@types/react-speech-recognition": "^3.9.2",
+    "@vitejs/plugin-react": "^4.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "regenerator-runtime": "^0.14.0",
+    "vite": "^4.4.9"
   }
 }
