@@ -1,6 +1,6 @@
 import {KaldiRecognizer} from "vosk-browser";
-import {SAMPLE_RATE} from "../vosk/VoskManager";
 import registerAudioProcessor from 'audio-worklet:./processor/AudioProcessor.ts'
+export const SAMPLE_RATE = 44100
 
 export class AudioSource {
     private _mediaStream: MediaStream
@@ -17,6 +17,9 @@ export class AudioSource {
         await registerAudioProcessor(this._audioContext)
         this._recognizerNode = new AudioWorkletNode(this._audioContext, 'recognizer-processor', { channelCount: 1, numberOfInputs: 1, numberOfOutputs: 1 })
         this._recognizerNode.port.postMessage({type: 'init', recognizerId: recognizer.id}, [channel.port2])
+        this._recognizerNode.connect(this._audioContext.destination)
+        const source = this._audioContext.createMediaStreamSource(this._mediaStream)
+        source.connect(this._recognizerNode)
     }
 
     static async init(recognizer: KaldiRecognizer, channel: MessageChannel): Promise<AudioSource> {

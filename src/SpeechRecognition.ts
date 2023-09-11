@@ -6,16 +6,20 @@ import {ObserverableValue, Observers} from "./types/Observer";
 
 export class SpeechRecognition extends SpeechRecognitionBase {
 
-    private static languageModels: Record<string, string>
+    private static languageModels: Record<string, string> = {}
     private static _isReady: ObserverableValue<boolean> = new ObserverableValue<boolean>()
     private voskManager: VoskManager = new VoskManager()
 
+    /**
+     * Notifies when VoskManager is ready to start recognition, i.e. when model is loaded
+     */
     public static get isReady(): Omit<Observers<boolean>, 'notify'> {
         return this._isReady.observers
     }
     /**
+     * Adds language to the list of supported languages
      * @param language
-     * @param modelUrl path to model's gzip tar archive relative to a base url of the app
+     * @param modelUrl path to model's gzip tar archive
      */
     static addLanguage(language: string, modelUrl: string) {
         SpeechRecognition.languageModels[language] = modelUrl
@@ -28,8 +32,12 @@ export class SpeechRecognition extends SpeechRecognitionBase {
         this._lang = language
         VoskManager.init(SpeechRecognition.languageModels[language])
             .then((manager) => {
-                SpeechRecognition._isReady.notify(true)
+                console.log(this.voskManager)
                 this.voskManager = manager
+                this.voskManager._onerror = (error) => this.onerror(error)
+                this.voskManager._onend = () => this.onend()
+                this.voskManager._onresult = (results) => this.onresult({resultIndex: 0, results})
+                SpeechRecognition._isReady.notify(true)
             })
     }
 
@@ -38,15 +46,20 @@ export class SpeechRecognition extends SpeechRecognitionBase {
     }
 
     abort(): void {
-        this.voskManager.close().then(() => console.debug('abort'))
+        this.voskManager?.close()
     }
 
     start(): void {
-        this.voskManager.start().then(() => console.debug('start'))
+        const callback = (isReady: boolean) => {
+            if (!isReady) return
+            this.voskManager.start()
+            SpeechRecognition.isReady.unsubscribe(callback)
+        }
+        SpeechRecognition.isReady.subscribe(callback)
     }
 
     stop(): void {
-        this.voskManager.stop().then(() => console.debug('stop'))
+        this.voskManager?.stop().then(() => console.debug('stop'))
     }
 
 }

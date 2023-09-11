@@ -2,12 +2,13 @@ interface ObserverCallback<T> {
     (value: T): void
 }
 export class Observers<T> {
-    private observers: ObserverCallback<T>[]
+    private observers: ObserverCallback<T>[] = []
     private _value: T
     public get value(): T {
         return this._value
     }
     public subscribe(observer: ObserverCallback<T>) {
+        observer(this._value)
         this.observers.push(observer)
     }
 

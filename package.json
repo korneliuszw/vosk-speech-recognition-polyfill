@@ -1,6 +1,6 @@
 {
   "name": "vosk-speech-recognition-polyfill",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Polyfill for web SpeechRecognition API using Vosk offline voice recognition",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -38,7 +38,6 @@ class AudioProcessor extends AudioWorkletProcessor {
         // AudioBuffer samples are represented as floating point numbers between -1.0 and 1.0 whilst
         // Kaldi expects them to be between -32768 and 32767 (the range of a signed int16)
         const audioArray = data.map(value => value * 0x800)
-        console.log(sampleRate)
         const message: AudioProcessorOutgoingMessage = {
             action: 'audioChunk',
             data: audioArray,
