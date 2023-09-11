@@ -26,3 +26,5 @@ export class ObserverableValue<T> {
         this.observers.notify(value)
     }
 }
+
+export type Observer<T> = Omit<Observers<T>, 'notify'>
